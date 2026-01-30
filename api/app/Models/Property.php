@@ -9,4 +9,6 @@ class Property extends Model
 {
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
 }

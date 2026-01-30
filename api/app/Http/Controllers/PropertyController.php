@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class PropertyController extends Controller
     public function index()
      {
         return response()->json([
-            'users' => User::all()
+            'properties' => Property::all()
         ],200);
     }
 
@@ -22,7 +23,10 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $property = Property::create($request->all());
+        return response()->json([
+            'property' => $property
+        ],200);
     }
 
     /**
@@ -30,7 +34,11 @@ class PropertyController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $property = Property::find($id);
+        return response()->json([
+            'property' => $property
+        ],200);
     }
 
     /**
@@ -38,7 +46,13 @@ class PropertyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $property = Property::find($id);
+
+        $property->update($request->all());
+        return response()->json([
+            'property' => $property,
+            'message' => 'Property Updated Successfully'
+        ],200);
     }
 
     /**
@@ -46,6 +60,10 @@ class PropertyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $property = Property::find($id);
+        $property->delete();
+        return response()->json([
+            'message' => 'Property Deleted Successfully'
+        ],200);
     }
 }

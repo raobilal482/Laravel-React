@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     */
     public function index()
      {
         return response()->json([
-            'users' => User::all()
+            'Types' => Type::all()
         ],200);
     }
 
@@ -22,7 +20,11 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $type = Type::create($request->all());
+        return response()->json([
+            'type' => $type,
+            'message' => 'Type Created Successfully'
+        ],200);
     }
 
     /**
@@ -30,7 +32,12 @@ class TypeController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $type = Type::find($id);
+        return response()->json([
+            'type' => $type,
+
+        ],200);
     }
 
     /**
@@ -38,7 +45,13 @@ class TypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $type = Type::find($id);
+
+        $type->update($request->all());
+        return response()->json([
+            'type' => $type,
+            'message' => 'Type Updated Successfully'
+        ],200);
     }
 
     /**
@@ -46,6 +59,10 @@ class TypeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $type = Type::find($id);
+        $type->delete();
+        return response()->json([
+            'message' => 'Type Deleted Successfully'
+        ],200);
     }
 }

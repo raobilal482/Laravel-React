@@ -17,14 +17,14 @@ Route::post('/login',[AuthController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function(){
 
-    Route::post('/logout',[AuthController::class,'logout']);
+    Route::get('/logout',[AuthController::class,'logout']);
     Route::get('/users',[AuthController::class,'index']);
 
-    Route::prefix('/property')->group(function(){
-        Route::apiResource('properties',PropertyController::class);
+    Route::prefix('/')->group(function(){
+        Route::apiResource('property',PropertyController::class);
     });
 
-    Route::prefix('/type')->group(function(){
+    Route::prefix('/')->group(function(){
         Route::apiResource('type',TypeController::class);
     });
 });
