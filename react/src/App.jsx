@@ -1,14 +1,19 @@
-import { useState } from 'react'
 import './App.css'
-import AppHeader from './components/layout/Header'
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import AppLayout from './components/layout/AppLayout'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import  AppRoutes  from './routes/AppRoutes';
+const queryClient = new QueryClient()
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <AppHeader />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AppLayout>
+          <AppRoutes />
+        </AppLayout>
+      </BrowserRouter>
+    </QueryClientProvider>
   )
 }
 

@@ -13,9 +13,16 @@ class PropertyController extends Controller
      */
     public function index()
      {
-        return response()->json([
-            'properties' => Property::all()
-        ],200);
+
+       $properties = Property::with('types', 'owner')
+        // ->inRandomOrder()
+        ->orderBy('id', 'desc')
+        ->limit(5)
+        ->get();
+
+    return response()->json([
+        'properties' => $properties
+    ], 200);
     }
 
     /**
@@ -23,7 +30,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $property = Property::create($request->all());
+        $data = $request->all();
+        $data['created_by'] = 1;
+        $property = Property::create($data);
         return response()->json([
             'property' => $property
         ],200);
