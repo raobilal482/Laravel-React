@@ -11,7 +11,7 @@ class TypeController extends Controller
     public function index()
      {
         return response()->json([
-            'Types' => Type::all()
+            'Types' => Type::orderBy('id','desc')->get()
         ],200);
     }
 
